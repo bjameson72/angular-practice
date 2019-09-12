@@ -14,14 +14,13 @@ const httpOptions = {
   providedIn: "root"
 })
 export class TodoService {
-  todosUrl: string = "https://jsonplaceholder.typicode.com/todos";
-  todosLimit = "?_limit=5";
+  todosUrl: string = "https://todo-list-56814.firebaseio.com/";
 
   constructor(private http: HttpClient) {}
 
   // Get Todos
   getTodos(): Observable<Todo[]> {
-    return this.http.get<Todo[]>(`${this.todosUrl}${this.todosLimit}`);
+    return this.http.get<Todo[]>(`${this.todosUrl}`);
   }
 
   // Delete Todo
