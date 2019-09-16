@@ -3,6 +3,7 @@ import { Observable } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 import { Todo } from "../models/Todo";
+import { AngularFireDatabase } from "@angular/fire/database";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -15,28 +16,33 @@ const httpOptions = {
 })
 export class TodoService {
   todosUrl: string = "https://todo-list-56814.firebaseio.com/";
+  todoValue = "";
+  todos: Observable<any[]>;
+  // todosLimit = "?_limit=3";
 
-  constructor(private http: HttpClient) {}
+  constructor(public db: AngularFireDatabase) {
+    this.todos = db.list("todos").valueChanges();
+    this.todoValue = "";
+  }
 
   // Get Todos
-  getTodos(): Observable<Todo[]> {
-    return this.http.get<Todo[]>(`${this.todosUrl}`);
+  getTodos() {
+    console.log(this.todos);
   }
 
   // Delete Todo
-  deleteTodo(todo: Todo): Observable<Todo> {
-    const url = `${this.todosUrl}/${todo.id}`;
-    return this.http.delete<Todo>(url, httpOptions);
-  }
+  // deleteTodo(todo: Todo): Observable<Todo> {
+  //   // const url = `${this.todosUrl}/${todo.id}`;
+  //   // return this.http.delete<Todo>(url, httpOptions);
+  // }
 
   // Add Todo
-  addTodo(todo: Todo): Observable<Todo> {
-    return this.http.post<Todo>(this.todosUrl, todo, httpOptions);
+  addTodo(todo: Todo) {
+    this.db.list("todos").push({ content: this.todoValue });
   }
 
   // Toggle Completed
-  toggleCompleted(todo: Todo): Observable<any> {
-    const url = `${this.todosUrl}/${todo.id}`;
-    return this.http.put(url, todo, httpOptions);
+  toggleCompleted(todo: Todo) {
+    this.db.list("todos").push({ Completed: this.todoValue });
   }
 }

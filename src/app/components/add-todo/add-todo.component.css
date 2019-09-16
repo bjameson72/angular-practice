@@ -1,5 +1,9 @@
 .form {
   display: flex;
+  width: 50%;
+  padding-bottom: 5px;
+  padding-top: 10px;
+  margin: auto;
 }
 
 .form input[type="text"] {
@@ -9,4 +13,12 @@
 
 .form input[type="submit"] {
   flex: 2;
+}
+
+.submitbutton {
+  border-radius: 0 3px 3px 0;
+}
+
+.textinput {
+  border-radius: 2px;
 }

@@ -17,3 +17,9 @@
 .is-complete {
   text-decoration: line-through;
 }
+
+.mayo {
+  width: 60%;
+  margin: auto;
+  border-radius: 7px;
+}
